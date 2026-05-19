@@ -1,7 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import ws from 'ws';
 
-// Credenciales desde GitHub Secrets
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_KEY,
@@ -16,9 +15,7 @@ async function main() {
   console.log('🔍 Buscando oferta del día...');
 
   const hoy = new Date().toISOString().split('T')[0];
-
   console.log('📅 Fecha buscada:', hoy);
-  console.log('🔗 URL Supabase:', process.env.SUPABASE_URL?.substring(0, 30));
 
   const { data, error } = await supabase
     .from('ofertas')
@@ -26,11 +23,11 @@ async function main() {
     .eq('fecha_programada', hoy)
     .eq('enviado', false)
     .limit(1)
-    .single();
+    .maybeSingle();
 
   if (error) console.log('⚠️ Error Supabase:', error.message);
 
-  if (error || !data) {
+  if (!data) {
     console.log('⚠️ No hay oferta programada para hoy.');
     process.exit(0);
   }
@@ -62,9 +59,10 @@ async function main() {
   );
 
   const result = await response.json();
+  console.log('📨 Respuesta Meta:', JSON.stringify(result));
 
   if (response.ok) {
-    console.log('✅ Mensaje enviado correctamente:', result);
+    console.log('✅ Mensaje enviado correctamente');
 
     await supabase
       .from('ofertas')
