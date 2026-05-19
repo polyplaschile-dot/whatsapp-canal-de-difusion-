@@ -37,8 +37,8 @@ async function main() {
     to: TEST_PHONE,
     type: 'template',
     template: {
-      name: 'oferta_vip_clientes',
-      language: { code: 'es' },
+      name: 'hello_world',
+      language: { code: 'en_US' },
       components: [
         {
           type: 'body',
