@@ -14,6 +14,8 @@ const TEST_PHONE = process.env.TEST_PHONE;
 
 async function main() {
   console.log('🔍 Buscando oferta del día...');
+  console.log('📅 Fecha buscada:', hoy);
+console.log('🔗 URL Supabase:', process.env.SUPABASE_URL?.substring(0, 30));
 
   const hoy = new Date().toISOString().split('T')[0];
 
