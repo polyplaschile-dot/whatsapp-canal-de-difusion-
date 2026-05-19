@@ -38,18 +38,7 @@ async function main() {
     type: 'template',
     template: {
       name: 'hello_world',
-      language: { code: 'en_US' },
-      components: [
-        {
-          type: 'body',
-          parameters: [
-            { type: 'text', text: data.producto },
-            { type: 'text', text: `${data.precio_original}` },
-            { type: 'text', text: `${data.precio_oferta}` },
-            { type: 'text', text: data.link_compra }
-          ]
-        }
-      ]
+      language: { code: 'en_US' }
     }
   };
 
