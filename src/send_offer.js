@@ -14,10 +14,11 @@ const TEST_PHONE = process.env.TEST_PHONE;
 
 async function main() {
   console.log('🔍 Buscando oferta del día...');
-  console.log('📅 Fecha buscada:', hoy);
-console.log('🔗 URL Supabase:', process.env.SUPABASE_URL?.substring(0, 30));
 
   const hoy = new Date().toISOString().split('T')[0];
+
+  console.log('📅 Fecha buscada:', hoy);
+  console.log('🔗 URL Supabase:', process.env.SUPABASE_URL?.substring(0, 30));
 
   const { data, error } = await supabase
     .from('ofertas')
@@ -26,6 +27,8 @@ console.log('🔗 URL Supabase:', process.env.SUPABASE_URL?.substring(0, 30));
     .eq('enviado', false)
     .limit(1)
     .single();
+
+  if (error) console.log('⚠️ Error Supabase:', error.message);
 
   if (error || !data) {
     console.log('⚠️ No hay oferta programada para hoy.');
