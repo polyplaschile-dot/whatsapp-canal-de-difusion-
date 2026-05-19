@@ -1,9 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
+import ws from 'ws';
 
 // Credenciales desde GitHub Secrets
 const supabase = createClient(
   process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY
+  process.env.SUPABASE_KEY,
+  { global: { fetch }, realtime: { transport: ws } }
 );
 
 const WHATSAPP_TOKEN = process.env.WHATSAPP_TOKEN;
